@@ -20,6 +20,8 @@ If you made any changes to the environment (e.g., pip install, conda install), t
 conda env export --no-builds | grep -v "prefix" > resources/environment.yml
 ```
 
+For more [info](https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html)
+
 ### Branching
 
 For a more detailed explanation, see [this link](https://github.com/Kunena/Kunena-Forum/wiki/Create-a-new-branch-with-git-and-manage-branches).
