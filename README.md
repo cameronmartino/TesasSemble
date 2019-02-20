@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/cameronmartino/TesasSemble.svg?branch=master)](https://travis-ci.org/cameronmartino/TesasSemble)
+
 # TesasSemble
 assemble in the 4th dimension 
 
