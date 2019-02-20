@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/cameronmartino/TesasSemble.svg?branch=master)](https://travis-ci.org/cameronmartino/TesasSemble)
+[![Coverage Status](https://coveralls.io/repos/github/cameronmartino/TesasSemble/badge.svg?branch=master)](https://coveralls.io/github/cameronmartino/TesasSemble?branch=master)
 
 # TesasSemble
 assemble in the 4th dimension 
