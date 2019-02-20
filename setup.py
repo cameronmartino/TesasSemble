@@ -58,7 +58,7 @@ if USE_CYTHON:
     extensions = cythonize(extensions)
 
 classes = """
-    Development Status :: 3 - Alpha
+    Development Status :: 2 - Pre-Alpha
     License :: OSI Approved :: BSD License
     Topic :: Software Development :: Libraries
     Topic :: Scientific/Engineering
