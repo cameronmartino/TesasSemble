@@ -12,16 +12,16 @@ class Node:
     def append_in_edges(self, edges):
         if isinstance(edges, list):
             for edge in edges:
-                    self.in_edges.append(edge)
-        elif edges != None:
-                self.in_edges.append(edges)
+                self.in_edges.append(edge)
+        elif edges is not None:
+            self.in_edges.append(edges)
 
     def append_out_edges(self, edges):
         if isinstance(edges, list):
             for edge in edges:
-                    self.out_edges.append(edge)
-        elif edges != None:
-                self.out_edges.append(edges)
+                self.out_edges.append(edge)
+        elif edges is not None:
+            self.out_edges.append(edges)
 
     def remove_in_edges(self, edges):
         if isinstance(edges, list):
@@ -29,12 +29,14 @@ class Node:
                 if edge in self.in_edges:
                     self.in_edges.remove(edge)
                     # Add code to remove node from Edge class
-                    # Add this only if you control edges from nodes, otherwise use 'remove_connection' from an edge
-        elif edges != None:
+                    # Add this only if you control edges from nodes, otherwise
+                    # use 'remove_connection' from an edge
+        elif edges is not None:
             if edges in self.in_edges:
                 self.in_edges.remove(edges)
                 # Add code to remove node from Edge class
-                # Add this only if you control edges from nodes, otherwise use 'remove_connection' from an edge
+                # Add this only if you control edges from nodes, otherwise use
+                # 'remove_connection' from an edge
 
     def remove_out_edges(self, edges):
         if isinstance(edges, list):
@@ -42,12 +44,14 @@ class Node:
                 if edge in self.out_edges:
                     self.out_edges.remove(edge)
                     # Add code to remove node from Edge class
-                    # Add this only if you control edges from nodes, otherwise use 'remove_connection' from an edge
-        elif edges != None:
+                    # Add this only if you control edges from nodes, otherwise
+                    # use 'remove_connection' from an edge
+        elif edges is not None:
             if edges in self.out_edges:
                 self.out_edges.remove(edges)
                 # Add code to remove node from Edge class
-                # Add this only if you control edges from nodes, otherwise use 'remove_connection' from an edge
+                # Add this only if you control edges from nodes, otherwise use
+                # 'remove_connection' from an edge
 
     def print_out_connections(self):
         connections = ''
@@ -88,21 +92,21 @@ class Edge:
     def set_node_a(self, node_a):
         old_a = self.node_a
         self.node_a = node_a
-        if self.node_b != None:
+        if self.node_b is not None:
             self.node_a.append_out_edges(self)
             if self not in self.node_b.in_edges:
                 self.node_b.append_in_edges(self)
-            if old_a != None:
+            if old_a is not None:
                 old_a.remove_out_edges(self)
 
     def set_node_b(self, node_b):
         old_b = self.node_b
         self.node_b = node_b
-        if self.node_a != None:
+        if self.node_a is not None:
             self.node_b.append_in_edges(self)
             if self not in self.node_a.out_edges:
                 self.node_b.append_out_edges(self)
-            if old_b != None:
+            if old_b is not None:
                 old_b.remove_in_edges(self)
 
     def remove_connection(self):
@@ -114,9 +118,9 @@ class Edge:
     def print_connection(self):
         if self.node_a is not None and self.node_b is not None:
             print(self.node_a, '->', self.node_b)
-        elif self.node_a != None:
+        elif self.node_a is not None:
             print(self.node_a, '->')
-        elif self.node_b != None:
+        elif self.node_b is not None:
             print('->', self.node_b)
         else:
             pass
@@ -159,6 +163,8 @@ def graph_deep_copy(nodes, edges):
 
     # Edge instances
     for edge in edges:
-        new_edges.append(Edge(edge.data, node_a = new_nodes[str(edge.node_a)], node_b = new_nodes[str(edge.node_b)]))
+        new_edges.append(Edge(edge.data,
+                              node_a=new_nodes[str(edge.node_a)],
+                              node_b=new_nodes[str(edge.node_b)]))
 
     return new_nodes, new_edges
