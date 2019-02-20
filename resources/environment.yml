@@ -1,4 +1,29 @@
 name: tesas
 channels:
   - defaults
+dependencies:
+  - ca-certificates=2019.1.23
+  - certifi=2018.11.29
+  - libcxx=4.0.1
+  - libcxxabi=4.0.1
+  - libedit=3.1.20181209
+  - libffi=3.2.1
+  - ncurses=6.1
+  - openssl=1.1.1a
+  - pip=19.0.1
+  - python=3.7.2
+  - readline=7.0
+  - setuptools=40.8.0
+  - sqlite=3.26.0
+  - tk=8.6.8
+  - wheel=0.32.3
+  - xz=5.2.4
+  - zlib=1.2.11
+  - pip:
+    - coverage==4.5.2
+    - entrypoints==0.3
+    - flake8==3.7.6
+    - mccabe==0.6.1
+    - pycodestyle==2.5.0
+    - pyflakes==2.1.0
 
