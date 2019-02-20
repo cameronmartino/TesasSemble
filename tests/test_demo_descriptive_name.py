@@ -17,3 +17,4 @@ class TestDemoExecution(unittest.TestCase):
 		"""
 		some_function = lambda x : x**2
 		self.assertEqual(some_function(4), 16)
+
