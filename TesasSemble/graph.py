@@ -69,11 +69,11 @@ class DiGraph:
 
 	def edges_after(self, edge):
 		# TODO use edge object not list for edge
-		return [[edge[1], e_to] for e_to in self.out_neighbors(edge[1])
+		return [[edge[1], e_to] for e_to in self.out_neighbors(edge[1])]
 
 	def edges_before(self, edge):
 		# TODO use edge object not list for edge
-		return [[e_from, edge[0] for e_from in self.in_neighbors(edge[0])]
+		return [[e_from, edge[0]] for e_from in self.in_neighbors(edge[0])]
 
 
 class RedBlueDiGraph(DiGraph):
@@ -94,7 +94,7 @@ class RedBlueDiGraph(DiGraph):
 		super(RedBlueDiGraph, self).add_edge(edge)
 
 	def calculate_coverage(self):
-		return sum([1 if edge.data['color'] == 'red' for edge in self.edges])
+		return sum([1 for edge in self.edges if edge.data['color'] == 'red' ])
 
 	def subgraph_from_edgelist(self, edges):
 		subgraph = super(RedBlueDiGraph, self).subgraph_from_edgelist(edges)

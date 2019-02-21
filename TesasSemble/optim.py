@@ -1,7 +1,7 @@
 import graph
 import optim_utils
 
-def randomized_optimal_subgraph(G, i k, alpha):
+def randomized_optimal_subgraph(G, i, k, alpha):
 	H = i_sample_edges(G, i)
 	best_H = None
 	best_score = 0
