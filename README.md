@@ -82,4 +82,6 @@ nosetests -v tests --with-coverage --cover-package=TesasSemble
 flake8 TesasSemble
 flake8 test
 ```
+## Benchmarks
 
+All benchmarking results and data can be found in [TesasSemble-benchmarking](https://github.com/cameronmartino/TesasSemble-benchmarking)
