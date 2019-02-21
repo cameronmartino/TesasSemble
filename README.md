@@ -50,16 +50,28 @@ Then create the branch on your local machine and switch in this branch:
 git checkout -b [name_of_your_new_branch]
 ```
 
-Push the branch on github:
+Push the branch on github and set the remote as upstream:
 
 ```
-git push origin [name_of_your_new_branch]
+git push --set-upstream origin [name_of_your_new_branch]
 ```
 
 Then you can commit and push as normal. When you have finalized the changes for the segment you are working on, navigate to the branch of your forked repo on the github website and submit a Pull request.
 
-### Testing
+Other helpful links:
+[Sync a fork of a repository to keep it up-to-date with the upstream repository](https://help.github.com/articles/syncing-a-fork/)
 
+[Configuring a remote fork](https://help.github.com/articles/configuring-a-remote-for-a-fork/)
+
+[Pull from master into development branch](https://stackoverflow.com/questions/20101994/git-pull-from-master-into-the-development-branch/20103414)
+
+[How to revert a Git repository to a previous commit](https://stackoverflow.com/questions/4114095/how-to-revert-a-git-repository-to-a-previous-commit)
+
+[Branch from a previous commit using Git](https://stackoverflow.com/questions/2816715/branch-from-a-previous-commit-using-git)
+
+[Using the github UI](https://guides.github.com/activities/hello-world/)
+
+### Testing
 To run unit tests (locally from the outer ```TesasSemble``` directory), do
 
 ```bash
