@@ -19,7 +19,7 @@ def modify_one_edge(G, H):
     if decision == 'remove':
         removed_edge = random.choice(tmp_H.edges)
         tmp_H.remove_edge(removed_edge)
-    return H
+    return tmp_H
 
 
 def k_adjacent_subgraph(G, H, k, decision = 'one'):
