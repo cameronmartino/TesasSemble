@@ -49,6 +49,7 @@ class DiGraph:
 			self.add_node(node)
 
 	def remove_edge(self, edge):
+		# TODO implement this, and consider removing nodes that are unconnected after this.
 		pass
 
 	def remove_node(self, node):
