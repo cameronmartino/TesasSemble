@@ -61,6 +61,7 @@ class DiGraph:
 		pass
 
 	def subgraph_from_edgelist(self, edges):
+		# TODO assert edges are in graph
 		pass
 
 	def edge_neighbors(self, edge):
@@ -91,13 +92,11 @@ class RedBlueDiGraph(DiGraph):
 
 	def add_edge(self, edge):
 		assert 'color' in edge.data
+		if edge.data['color'] == 'red':
+			self.coverage += 1
 		super(RedBlueDiGraph, self).add_edge(edge)
 
 	def calculate_coverage(self):
 		return sum([1 for edge in self.edges if edge.data['color'] == 'red' ])
 
-	def subgraph_from_edgelist(self, edges):
-		subgraph = super(RedBlueDiGraph, self).subgraph_from_edgelist(edges)
-		subgraph.coverage = self.calculate_coverage()
-		return subgraph
 
