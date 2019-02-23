@@ -36,4 +36,4 @@ def k_adjacent_subgraph(G, H, k, decision = 'one'):
         H_prime = random.choice(k_neighbors)
     else:
         return None
-    return k_adjacent_subgraph(G, H_prime, k-1, decision)
+    k_adjacent_subgraph(G, H_prime, k-1, decision)
