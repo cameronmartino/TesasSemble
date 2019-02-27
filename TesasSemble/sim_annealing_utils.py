@@ -8,7 +8,7 @@ def initial_subgraph(G):
 def modify_one_edge(G, H):
     # decide if add or remove
     decision = random.choice(['add', 'remove'])
-    tmp_H = H.copy()    # TODO include a deep copy method for DiGraphs
+    tmp_H = H.copy()
     if decision == 'add':
         neighbor_edges = []
         for edge in G.edges:
@@ -22,18 +22,11 @@ def modify_one_edge(G, H):
     return tmp_H
 
 
-def k_adjacent_subgraph(G, H, k, decision = 'one'):
+def fast_k_neighbor_sampler(G, H, k):
     '''
     This function returns a k-adjacent subgraph of H.
-    'decision' could be one at the time ('one') or uniformly pick among all k-adjacent graphs ('uniform').
     '''
     if k == 0:
         return H
-    if decision == 'one':
-        H_prime = modify_one_edge(G, H)
-    elif decision == 'uniform':
-        k_neighbors = []    # TODO implement George's method to generate all k-neighbors
-        H_prime = random.choice(k_neighbors)
-    else:
-        return None
-    k_adjacent_subgraph(G, H_prime, k-1, decision)
+    H_prime = modify_one_edge(G, H)
+    fast_k_neighbor_sampler(G, H_prime, k - 1)
