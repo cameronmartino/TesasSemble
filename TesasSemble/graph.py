@@ -11,7 +11,39 @@ class DiGraph:
 
 	def maximal_non_branching_paths(self):
 		# return list of paths (made up of graph nodes)
-		pass
+		paths = []
+		visited_edges = set()
+		for node in self.nodes:
+			if not self.is_1_in_1_out(node):
+				if self.out_degree(node) > 0:
+					out_edges = self.nodes[node]['out_edges']
+					for edge in out_edges:
+						visited_edges.add(edge)
+						to_node = edge.node_b
+						non_branching_path = [edge]
+						while self.is_1_in_1_out(to_node):
+							out_edge = self.nodes[to_node]['out_edges'][0]
+							non_branching_path.append(out_edge)
+							visited_edges.add(out_edge)
+							to_node = out_edge.node_b
+						paths.append(non_branching_path)
+
+		# everything left must be in a cycle
+		cycle_edges = set(filter(lambda edge : edge not in visited_edges, self.edges))
+		while len(cycle_edges) > 0:
+			edge = cycle_edges.pop()
+			non_branching_path = [edge]
+			start_node = edge.node_b
+			to_node = edge.node_b
+			while to_node != start_node:
+				out_edge = self.nodes[to_node]['out_edges'][0]
+				non_branching_path.append(out_edge)
+				cycle_edges.remove(out_edge)
+				visited_edges.add(out_edge)
+				to_node = out_edge.node_b
+			paths.append(non_branching_path)
+
+		return paths
 
 	def neighbor_graphs(self, sub_graph, super_graph, k):
 		if k >= 0:
@@ -71,6 +103,9 @@ class DiGraph:
 
 	def out_degree(self, node):
 		return len(self.nodes[node]['out_edges'])
+
+	def is_1_in_1_out(self, node):
+		return self.in_degree(node) == 1 and self.out_degree(node) == 1
 
 	def add_edges_from(self, edges):
 		for edge in edges:
