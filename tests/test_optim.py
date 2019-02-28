@@ -2,6 +2,7 @@ import unittest
 from TesasSemble.graph import *
 from TesasSemble.graph_components import *
 from TesasSemble.optim import *
+from TesasSemble.sim_annealing import *
 from TesasSemble.optim_utils import *
 
 class TestGraphClass(unittest.TestCase):
@@ -76,5 +77,14 @@ class TestGraphClass(unittest.TestCase):
 
 		self.teardown_small_diamond_graph()
 
+	def test_simanneal_exec(self):
+		self.setup_small_diamond_graph()
+
+		approximate_subgraph, best_score = \
+			simulated_annealing(self.sub, self.G, 0.8, n=10)
+
+		# TODO more thorough check of equivalence of subgraph
+
+		self.teardown_small_diamond_graph()
 
 
