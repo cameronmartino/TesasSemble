@@ -140,13 +140,14 @@ class DiGraph:
 			self.add_node(node)
 
 	def remove_edge(self, edge):
+		node_a, node_b = edge.node_a, edge.node_b
 		self.nodes[node_a]['out_edges'].remove(edge)
 		self.nodes[node_b]['in_edges'].remove(edge)
 		self.edges.remove(edge)
 		if len(self.nodes[node_a]['out_edges']) + len(self.nodes[node_a]['in_edges']) == 0:
-			self.nodes.remove(node_a)
+			self.nodes.pop(node_a)
 		if len(self.nodes[node_b]['out_edges']) + len(self.nodes[node_b]['in_edges']) == 0:
-			self.nodes.remove(node_b)
+			self.nodes.pop(node_b)
 
 	def remove_node(self, node):
 		for edge in self.nodes[node]['in_edges']:
@@ -227,6 +228,6 @@ class RedBlueDiGraph(DiGraph):
 			self.coverage -= 1
 		else:
 			self.coverage += 1
-		self.color.remove(edge)
+		self.color.pop(edge)
 		super(RedBlueDiGraph, self).remove_edge(edge)
 

@@ -1,30 +1,30 @@
-from sim_annealing_utils import *
-from optim_utils import *
+import TesasSemble.optim_utils as optim_utils
+import TesasSemble.sim_annealing_utils as sa_utils
 import math
 import random
 
-def simulated_annealing(G,
+def simulated_annealing(H,
+                        G,
                         alpha,
                         k_neighbors = 3,
                         T = 40,
                         Tmin = 0,
                         T_tol = 1e-5,
                         n = 100,
-                        gamma = 0.5,
-                        graph_percentage = 0.5,
+                        gamma = 0.85,
                         sampling_decision = 'fast'):
     '''Simulated Annealing to perform an optimization to obtain a subgraph H from graph G.'''
 
-    best_H = i_sample_edges(G, int(graph_percentage * len(G.edges)))
+    best_H = H
     best_score = best_H.score(alpha)
 
     while T > Tmin + T_tol:
         for i in range(n):
             if sampling_decision == 'fast':
-                H = fast_k_neighbor_sampler(G, best_H, k_neighbors)
-            elif sampling_decision == 'k_adjacent':
-                #H = best_H.adjacent_graph(best_H, G, k_neighbors)
-                H = fast_k_neighbor_sampler(G, best_H, k_neighbors)
+                H = sa_utils.fast_k_neighbor_sampler(best_H, G, k_neighbors)
+            # TODO implement random sampling from adjacent_graph
+            #elif sampling_decision == 'k_adjacent':
+            #    H = best_H.adjacent_graph(best_H, G, k_neighbors)
             else:
                 print('Invalid "sampling_decision"')
                 return None
@@ -43,4 +43,4 @@ def simulated_annealing(G,
 
         T = gamma * T   # Geometric decrease of temperature
 
-    return best_H
+    return best_H, best_score
