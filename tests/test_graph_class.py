@@ -110,7 +110,40 @@ class TestGraphClass(unittest.TestCase):
 		del self.EH 
 		del self.IJ 
 		del self.JI 
-		
+	
+	def setup_small_sub_super(self):
+		self.super_ = RedBlueDiGraph()
+		self.sub = RedBlueDiGraph()
+
+		self.A = Node('A')
+		self.B = Node('B')
+		self.C = Node('C')
+		self.D = Node('D')
+		self.E = Node('E')
+		self.AC = Edge('AC', self.A, self.C)
+		self.BC = Edge('BC', self.B, self.C)
+		self.CD = Edge('CD', self.C, self.D)
+		self.DE = Edge('DE', self.D, self.E)
+
+		super_edge_list = [self.AC, self.BC, self.CD, self.DE]
+		colors 	  = ['blue',  'red',   'red',   'blue']
+		self.super_.add_edges_from(super_edge_list, colors)
+		self.sub.add_edges_from([self.BC], ['red'])
+
+
+	def teardown_small_sub_super(self):
+		del self.super_
+		del self.sub
+
+		del self.A 
+		del self.B 
+		del self.C 
+		del self.D 
+		del self.E 
+		del self.AC
+		del self.BC
+		del self.CD
+		del self.DE
 
 	def test_DiGraph_init(self):
 		G = DiGraph()
@@ -159,6 +192,9 @@ class TestGraphClass(unittest.TestCase):
 		self.assertIn(self.A, H.nodes)
 		self.assertIn(self.AC, H.nodes[self.C]['in_edges'])
 
+		# G color should only contain edges that it has, and all colors should be the same as in H
+		self.assertEqual(self.G.color, {edge: H.color[edge] for edge in self.G.edges})
+
 		self.teardown_ABC_graph()
 
 	def test_max_non_branch_paths_small_triangle(self):
@@ -197,3 +233,25 @@ class TestGraphClass(unittest.TestCase):
 
 		self.teardown_small_diamond_graph()
 
+	def test_small_graph(self):
+		pass
+
+	def test_plus_neighbors_small_sub_super(self):
+
+		self.setup_small_sub_super()
+
+		neighbors = list(self.sub.plus_neighbors(self.super_))
+
+		plus_neighbor_edges = [self.AC, self.CD]
+		plus_neighbor_graphs = []
+		for edge in plus_neighbor_edges:
+			graph = self.sub.copy()
+			graph.add_edge(edge)
+			plus_neighbor_graphs.append(graph)
+		self.assertEqual(len(neighbors), len(plus_neighbor_graphs))
+		for graph in neighbors:
+			self.assertIn(graph, plus_neighbor_graphs)
+			plus_neighbor_graphs.remove(graph)
+		self.assertEqual(len(plus_neighbor_graphs), 0)
+
+		self.teardown_small_sub_super()

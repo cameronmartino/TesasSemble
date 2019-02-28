@@ -35,8 +35,12 @@ class TestGraphClass(unittest.TestCase):
 		colors 	  = ['blue',  'red',   'red',   'blue',  'red',   'blue',  'red',   'blue',  'red',   'red'  ]
 		self.G.add_edges_from(edge_list, colors)
 
+		self.sub = RedBlueDiGraph()
+		self.sub.add_edges_from([self.AC], ['blue'])
+
 	def teardown_small_diamond_graph(self):
 		del self.G
+		del self.sub
 
 		del self.A
 		del self.B
@@ -60,14 +64,15 @@ class TestGraphClass(unittest.TestCase):
 		del self.IJ 
 		del self.JI 
 
+
 	def test_randomized_optimal_subgraph(self):
 		self.setup_small_diamond_graph()
 		
-		#initial_subgraph = i_sample_edges(self.G, 2)
-
 		approximate_subgraph, best_score = \
-				randomized_optimal_subgraph(self.G, 2, 2, 0.5)
+				randomized_optimal_subgraph(self.sub, self.G, 2, 0.5)
 
+		# TODO more thorough check of equivalence of subgraph
+		self.assertEqual(5, len(approximate_subgraph.edges))
 
 		self.teardown_small_diamond_graph()
 
