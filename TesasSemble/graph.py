@@ -41,6 +41,8 @@ class DiGraph:
 				cycle_edges.remove(out_edge)
 				visited_edges.add(out_edge)
 				to_node = out_edge.node_b
+				if len(cycle_edges) == 0:
+					break
 			paths.append(non_branching_path)
 
 		return paths
