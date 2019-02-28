@@ -9,6 +9,14 @@ class DiGraph:
 		H_.add_edges_from(self.edges)
 		return H_
 
+	def __eq__(self, other):
+		return len(set(self.edges) ^ set(other.edges)) == 0
+
+	def __str__(self):
+		return str(self.edges)
+
+	__repr__ = __str__
+
 	def maximal_non_branching_paths(self):
 		# return list of paths (made up of graph nodes)
 		paths = []
@@ -33,7 +41,7 @@ class DiGraph:
 		while len(cycle_edges) > 0:
 			edge = cycle_edges.pop()
 			non_branching_path = [edge]
-			start_node = edge.node_b
+			start_node = edge.node_a
 			to_node = edge.node_b
 			while to_node != start_node:
 				out_edge = self.nodes[to_node]['out_edges'][0]
@@ -48,33 +56,47 @@ class DiGraph:
 		return paths
 
 	def neighbor_graphs(self, sub_graph, super_graph, k):
+		# generator for the k-plus neighbors
 		if k >= 0:
 			yield sub_graph
-			for neighbor in sub_graph.plus_neighbors(sub_graph):
+			for neighbor in sub_graph.plus_neighbors(super_graph):
 				yield from neighbor.neighbor_graphs(neighbor, super_graph, k-1)
 
 	def adjacent_graphs(self, sub_graph, super_graph, k):
 		if k >= 0:
 			yield sub_graph
-			for neighbor in sub_graph.plus_neighbors(sub_graph):
+			for neighbor in sub_graph.plus_neighbors(super_graph):
 				yield from neighbor.adjacent_graphs(neighbor, super_graph, k-1)
-			for neighbor in sub_graph.minus_neighbors(sub_graph):
+			for neighbor in sub_graph.minus_neighbors():
 				yield from neighbor.adjacent_graphs(neighbor, super_graph, k-1)
 
-	def plus_neighbors(self, super_graph):
+	def plus_neighbor_edges(self, super_graph):
+		# TODO this is ugly, make neater
 		paths = list()
 		# first generate paths
 		for edge in self.edges:
 			from_, to = edge.node_a, edge.node_b
-			from_super_edges = super_graph.nodes['out_edges'][to]
-			to_super_edges = super_graph.nodes['in_edges'][from_]
-			not_in_H = lambda edge : edge not in H
+			from_super_edges = super_graph.nodes[to]['out_edges']
+			to_super_edges = super_graph.nodes[from_]['in_edges']
+			not_in_H = lambda edge : edge not in self.edges
 			from_super_edges = filter(not_in_H, from_super_edges)
-			to_super_edges = filter(not_In_H, to_super_edges)
+			to_super_edges = filter(not_in_H, to_super_edges)
+			paths.extend(from_super_edges)
+			paths.extend(to_super_edges)
+
+			from_super_edges = super_graph.nodes[from_]['out_edges']
+			to_super_edges = super_graph.nodes[to]['in_edges']
+			not_in_H = lambda edge : edge not in self.edges
+			from_super_edges = filter(not_in_H, from_super_edges)
+			to_super_edges = filter(not_in_H, to_super_edges)
 			paths.extend(from_super_edges)
 			paths.extend(to_super_edges)
 
 		paths = set(paths)
+		return paths
+
+	def plus_neighbors(self, super_graph):
+		paths = self.plus_neighbor_edges(super_graph)
 
 		# then generate a graph for each unique path
 		for path in paths:
@@ -155,12 +177,21 @@ class RedBlueDiGraph(DiGraph):
 		self.coverage = 0
 		self.color = dict()
 
+	def __str__(self):
+		return str([(edge, self.color[edge]) for edge in self.edges])
+
+	def copy(self):
+		H_ = __class__()
+		H_.add_edges_from(self.edges)
+		H_.coverage = self.coverage
+		H_.color = dict(self.color)
+		return H_
+
 	def score(self, alpha):
-		avg_coverage = self.coverage / len(self.edges)
 		paths = self.maximal_non_branching_paths()
 		total_path_length = sum([len(path) for path in paths])
-		avg_path_length =  total_path_length/len(paths)
-		return alpha * avg_coverage + (1-alpha) * avg_path_length
+		avg_path_length = total_path_length/len(paths) if len(paths) > 0 else 0
+		return alpha * self.coverage + (1-alpha) * avg_path_length
 
 	def add_edge(self, edge, color='blue'):
 		super(RedBlueDiGraph, self).add_edge(edge)
@@ -178,6 +209,15 @@ class RedBlueDiGraph(DiGraph):
 				self.add_edge(edge, color=colors[i])
 		else:
 			super(RedBlueDiGraph, self).add_edges_from(edges)
+
+	def plus_neighbors(self, super_graph):
+		paths = self.plus_neighbor_edges(super_graph)
+
+		# then generate a graph for each unique path
+		for path in paths:
+			H_ = self.copy()
+			H_.add_edge(path, color=super_graph.color[path])
+			yield H_
 
 	def calculate_coverage(self):
 		return self.coverage 
