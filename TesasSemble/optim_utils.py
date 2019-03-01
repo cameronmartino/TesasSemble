@@ -37,7 +37,7 @@ def modify_one_edge(H, G):
         neighbor_edges = []
         neighbor_edges.extend(G.edges)
         tmp_H.add_edge(random.choice(neighbor_edges))
-return tmp_H
+    return tmp_H
 
 def fast_k_neighbor_sampler(H, G, k):
     '''
