@@ -37,26 +37,26 @@ def simulated_annealing(H,
     while T > Tmin + T_tol:
         for i in range(n):
             if sampling_decision == 'fast':
-                H = optim_utils.fast_k_neighbor_sampler(best_H, G, k_neighbors)
+                new_H = optim_utils.fast_k_neighbor_sampler(best_H, G, k_neighbors)
             # TODO implement random sampling from adjacent_graph
             #elif sampling_decision == 'k_adjacent':
-            #    H = best_H.adjacent_graph(best_H, G, k_neighbors)
+            #    new_H = best_H.adjacent_graph(best_H, G, k_neighbors)
             else:
                 print('Invalid "sampling_decision"')
                 return None
 
-            H_score = H.score(alpha)
-            delta = best_score - H_score
+            new_H_score = new_H.score(alpha)
+            delta = best_score - new_H_score
             prob = math.exp(-delta / T)
             if delta < 0:
-                best_H = H
-                best_score = H_score
+                best_H = new_H
+                best_score = new_H_score
                 break
             elif random.random() < prob:
-                best_H = H
-                best_score = H_score
+                best_H = new_H
+                best_score = new_H_score
                 break
 
         T = gamma * T   # Geometric decrease of temperature
 
-    return best_H, best_score
+return best_H, best_score
