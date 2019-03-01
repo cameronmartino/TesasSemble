@@ -55,7 +55,7 @@ def fastgs_to_red_blue(path_g1,path_g2):
                  for x,v1 in read_fastg(path_g1).items() 
                  for y,v2 in read_fastg(path_g2).items() 
                  if v1==v2]
-    print(map_g1_g2)
+    #print(map_g1_g2)
     
     map_g1_g2_names = {x_:y_ for x,y in map_g1_g2 
                        for x_,y_ in zip(x.split(' '),
