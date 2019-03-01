@@ -2,7 +2,7 @@ import unittest
 from TesasSemble.graph import *
 from TesasSemble.graph_components import *
 from TesasSemble.optim import *
-from TesasSemble.sim_annealing import *
+#from TesasSemble.sim_annealing import *
 from TesasSemble.optim_utils import *
 
 class TestGraphClass(unittest.TestCase):
