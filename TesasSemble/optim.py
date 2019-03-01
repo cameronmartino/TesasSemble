@@ -16,8 +16,8 @@ def randomized_optimal_subgraph(H, G, k, alpha):
                 best_score = H_prime_score
                 H_score = best_score
         flag = False
-
     return best_H, best_score
+
 
 def simulated_annealing(H,
                         G,
@@ -58,5 +58,4 @@ def simulated_annealing(H,
                 break
 
         T = gamma * T   # Geometric decrease of temperature
-
     return best_H, best_score
