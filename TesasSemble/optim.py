@@ -59,4 +59,4 @@ def simulated_annealing(H,
 
         T = gamma * T   # Geometric decrease of temperature
 
-return best_H, best_score
+    return best_H, best_score
