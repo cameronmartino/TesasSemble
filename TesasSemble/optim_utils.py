@@ -4,16 +4,13 @@ import TesasSemble.graph as graph
 # TODO implement graph sampling techniques
 
 def i_sample_edges(Graph, i):
-	edge_list = [edge for edge in Graph.edges if Graph.color[edge] == 'red']
-	random.shuffle(edge_list)
-	sampled_edges = edge_list[:i]
-	H = graph.RedBlueDiGraph()
-	H.add_edges_from(sampled_edges)
-	return H
+    edge_list = [edge for edge in Graph.edges if Graph.color[edge] == 'red']
+    random.shuffle(edge_list)
+    sampled_edges = edge_list[:i]
+    H = graph.RedBlueDiGraph()
+    H.add_edges_from(sampled_edges)
+    return H
 
-def initial_subgraph(G):
-    '''Pick a random connected subgraph.'''
-    pass
 
 def modify_one_edge(H, G):
     # decide if add or remove
@@ -38,6 +35,7 @@ def modify_one_edge(H, G):
         neighbor_edges.extend(G.edges)
         tmp_H.add_edge(random.choice(neighbor_edges))
     return tmp_H
+
 
 def fast_k_neighbor_sampler(H, G, k):
     '''
