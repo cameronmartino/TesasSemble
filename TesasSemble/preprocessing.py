@@ -91,7 +91,7 @@ class RBFG(_BaseRedBlueFastq):
     Alternatively you can fit_transform for one condition
     
     >>> G1_RdBu_single, node_map = RBFG().fit_single([g1,g2],g1)
-    >>> G2_RdBu_single, node_map = RBFG().fit_single([g1,g2],g2)
+    >>> G2_RdBu_single, node_map = RBFG().fit_single([g1,g2], g2, nodes = node_map)
 
     Now we can also map each node back to it's kmer.
     
