@@ -5,7 +5,7 @@ from TesasSemble.graph_components import Node, Edge
 from TesasSemble.base import _BaseRedBlueFastq
 
 
-class RBFG(_BaseRedBlueFastq):
+class GraphConstructor(_BaseRedBlueFastq):
 
     """
 
@@ -74,7 +74,7 @@ class RBFG(_BaseRedBlueFastq):
     Examples
     --------
 
-    >>> from TesasSemble.preprocessing import RBFG
+    >>> from TesasSemble.preprocessing import GraphConstructor
 
     example fastgs in tests/data/fastq_test
     - a fist sample S1.fastq
@@ -82,7 +82,7 @@ class RBFG(_BaseRedBlueFastq):
 
     >>> g1 = 'tests/data/fastg_test/S0.fastq'
     >>> g2 = 'tests/data/fastg_test/S1.fastq'
-    >>> G_RdBu = RBFG.fit([g1,g2])
+    >>> G_RdBu = GraphConstructor.fit([g1,g2])
 
     Now we can get the conditional graphs for each.
 
@@ -91,8 +91,8 @@ class RBFG(_BaseRedBlueFastq):
 
     Alternatively you can fit_transform for one condition
 
-    >>> G1_RdBu_single,nm = RBFG().fit_single([g1,g2],g1)
-    >>> G2_RdBu_single,nm = RBFG().fit_single([g1,g2],
+    >>> G1_RdBu_single,nm = GraphConstructor().fit_single([g1,g2],g1)
+    >>> G2_RdBu_single,nm = GraphConstructor().fit_single([g1,g2],
                                                g2,nodes=nm)
 
     Now we can also map each node back to it's kmer.
@@ -113,10 +113,10 @@ class RBFG(_BaseRedBlueFastq):
         self.conditions = conditions
 
         # generate edges
-        self.edges = {r: debruijn([str(fasta.seq) for fasta
-                                   in SeqIO.parse(open(r),
+        self.edges = {condition: debruijn([str(fasta.seq) for fasta
+                                   in SeqIO.parse(open(condition),
                                                   'fasta')], self.k)
-                      for r in self.conditions}
+                      for condition in self.conditions}
 
         # set of nodes
         nodes = set([z for r, x in self.edges.items()
@@ -245,8 +245,9 @@ class RBFG(_BaseRedBlueFastq):
 
 def debruijn(seqs, k):
     # debruijn helper
-    kmers = []
-    for seq in seqs:
-        for f in range(len(seq) + 1 - k):
-            kmers.append((seq[f:f + k][:-1], seq[f:f + k][1:]))
-    return kmers
+    edges = []
+    for kmers in seqs:
+        for f in range(len(kmers) + 1 - k):
+            edges.append((kmers[f:f + k][:-1],
+                          kmers[f:f + k][1:]))
+    return edges

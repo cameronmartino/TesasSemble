@@ -1,6 +1,6 @@
 import os
 import unittest
-from TesasSemble.preprocessing import RBFG,debruijn
+from TesasSemble.preprocessing import GraphConstructor,debruijn
 
 class Testpreprocessing(unittest.TestCase):
 	def setUp(self):
@@ -18,17 +18,17 @@ class Testpreprocessing(unittest.TestCase):
 
 		pass
 
-	def test_RBFG(self):
+	def test_GraphConstructor(self):
 
 		# all fit 
-		G_RdBu = RBFG().fit([self.g1,self.g2,self.g3])
+		G_RdBu = GraphConstructor().fit([self.g1,self.g2,self.g3])
 		G1_RdBu = G_RdBu.condition_graph(self.g1)
 		G2_RdBu = G_RdBu.condition_graph(self.g2)
 		G3_RdBu = G_RdBu.condition_graph(self.g3)
 		# single
-		G1_RdBu_single, node_map = RBFG().fit_single([self.g1,self.g2,self.g3],self.g1)
-		G2_RdBu_single, node_map = RBFG().fit_single([self.g1,self.g2,self.g3],self.g2, nodes=node_map)
-		G3_RdBu_single, node_map = RBFG().fit_single([self.g1,self.g2,self.g3],self.g3, nodes=node_map)
+		G1_RdBu_single, node_map = GraphConstructor().fit_single([self.g1,self.g2,self.g3],self.g1)
+		G2_RdBu_single, node_map = GraphConstructor().fit_single([self.g1,self.g2,self.g3],self.g2, nodes=node_map)
+		G3_RdBu_single, node_map = GraphConstructor().fit_single([self.g1,self.g2,self.g3],self.g3, nodes=node_map)
 		# tests 
 		self.assertEqual(G1_RdBu == G2_RdBu, False)
 		self.assertEqual(G1_RdBu_single == G2_RdBu_single, False)
