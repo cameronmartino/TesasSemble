@@ -9,7 +9,7 @@ def i_sample_edges(Graph, i):
     random.shuffle(edge_list)
     sampled_edges = edge_list[:i]
     H = graph.RedBlueDiGraph()
-    H.add_edges_from(sampled_edges)
+    H.add_edges_from(sampled_edges, [Graph.color[edge] for edge in sampled_edges])
     return H
 
 
