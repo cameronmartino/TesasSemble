@@ -90,7 +90,7 @@ class TestContigAssembly(unittest.TestCase):
 
         contigs = sorted(contig_assembly(self.G_, self.reads_map))
 
-        self.assertEquals(contigs,self.expected_contigs)
+        self.assertCountEqual(contigs,self.expected_contigs)
 
         self.teardown_small_diamond_graph
 
