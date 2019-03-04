@@ -4,6 +4,11 @@
 # TesasSemble
 assemble in the 4th dimension 
 
+### Running TesasSemble
+If you are using the appropriate environment, you should be able to run TesasSemble with a command like
+```python
+python scripts/run_optim.py --files tests/data/fastq_test/S0.fastq tests/data/fastq_test/S1.fastq tests/data/fastq_test/S2.fastq --num-initial-edges 10 --optim-type simulated_annealing --output-dir output --alpha=0.3 -r 420 -k 1
+```
 
 ### Environment
 
