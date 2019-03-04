@@ -47,15 +47,16 @@ def simulated_annealing(H,
 
             new_H_score = new_H.score(alpha)
             delta = best_score - new_H_score
-            prob = math.exp(-delta / T)
             if delta < 0:
                 best_H = new_H
                 best_score = new_H_score
                 break
-            elif random.random() < prob:
-                best_H = new_H
-                best_score = new_H_score
-                break
+            else:
+                prob = math.exp(-delta / T)
+                if random.random() < prob:
+                    best_H = new_H
+                    best_score = new_H_score
+                    break
 
         T = gamma * T   # Geometric decrease of temperature
     return best_H, best_score
