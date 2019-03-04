@@ -17,6 +17,7 @@ dependencies:
   - wheel=0.32.3
   - xz=5.2.4
   - zlib=1.2.11
+  - biopython=1.72
   - pip:
     - coverage==4.5.2
     - entrypoints==0.3
