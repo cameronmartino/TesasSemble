@@ -82,7 +82,7 @@ class GraphConstructor(_BaseRedBlueFastq):
 
     >>> g1 = 'tests/data/fastg_test/S0.fastq'
     >>> g2 = 'tests/data/fastg_test/S1.fastq'
-    >>> G_RdBu = GraphConstructor.fit([g1,g2])
+    >>> G_RdBu = GraphConstructor(k=420).fit([g1,g2])
 
     Now we can get the conditional graphs for each.
 
