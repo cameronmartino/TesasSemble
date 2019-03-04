@@ -17,6 +17,13 @@ Then activate the environment with ```conda activate tesas```.
 
 Verify that the new environment was installed correctly with ```conda info --envs```.
 
+If you have already created the tesas environment and need to update, do
+
+```bash
+conda activate tesas
+conda env update -f=resources/environment.yml
+```
+
 If you made any changes to the environment (e.g., pip install, conda install), then you need to save these changes to the environment; do
 
 ```bash
