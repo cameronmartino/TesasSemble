@@ -7,7 +7,8 @@ def randomized_optimal_subgraph(H, G, k, alpha):
     best_H = H
     flag = True
     best_score = best_H.score(alpha)
-    while best_H != H or flag:
+    H_score = best_score
+    while best_score != H_score or flag:
         H = best_H
         H_score = H.score(alpha)
         for H_prime in H.neighbor_graphs(H, G, k):
@@ -49,15 +50,17 @@ def simulated_annealing(H,
 
             new_H_score = new_H.score(alpha)
             delta = best_score - new_H_score
-            prob = math.exp(-delta / T)
             if delta < 0:
                 best_H = new_H
                 best_score = new_H_score
                 break
-            elif random.random() < prob:
-                best_H = new_H
-                best_score = new_H_score
-                break
+            else:
+                prob = math.exp(-delta / T)
+                if random.random() < prob:
+                    best_H = new_H
+                    best_score = new_H_score
+                    break
 
         T = gamma * T   # Geometric decrease of temperature
     return best_H, best_score
+
