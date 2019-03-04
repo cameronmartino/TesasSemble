@@ -222,8 +222,10 @@ class GraphConstructor(_BaseRedBlueFastq):
         nodes_G_tmp = {}
         edge_G_tmp = {}
         for i, n in enumerate(set(cond_tmp + rest_tmp)):
-            nodes_G_tmp[n[0]] = Node(n[0])
-            nodes_G_tmp[n[1]] = Node(n[1])
+            if n[0] not in nodes_G_tmp:
+                nodes_G_tmp[n[0]] = Node(n[0])
+            if n[1] not in nodes_G_tmp:
+                nodes_G_tmp[n[1]] = Node(n[1])
             edge_G_tmp['-'.join([str(n[0]),
                                  str(n[1])])] = Edge('-'.join([str(n[0]),
                                                                str(n[1])]),
