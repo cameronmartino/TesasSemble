@@ -2,10 +2,10 @@ def EdgePathtoNodePath(edgePath):
     """Convert a path represented edges to a path represented by respective nodes"""
     nodePath = []
     for path in edgePath:
-        node_path = [path[0].node_a,path[0].node_b]
+        node_path = [path[0].node_a.data,path[0].node_b.data]
         if len(path)>1:
             for edge in path[1:]:
-                node_path.append(edge.node_b)
+                node_path.append(edge.node_b.data)
         nodePath.append(node_path)
     return nodePath
 
