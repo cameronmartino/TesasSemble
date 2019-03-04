@@ -41,3 +41,4 @@ def contig_assembly(graph,reads_map):
         contigs += [stringSpelledByNodePath(path,reads_map)]
         
     return contigs
+
