@@ -22,12 +22,10 @@ def overlapBetweenStrings(string1,string2):
 
 def stringSpelledByNodePath(path,reads_map):
     """String spelled by a path represented by node values"""
-    string = reads_map[int(str(path[0]))]
+    string = reads_map[path[0]]
     for i in range(1,len(path)):
-        string1 = reads_map[int(str(path[i-1]))] 
-        # this indexing may need to be changed depending on key values (are they ints?)
-        # if it is nodes instead of ints, can get ride of int(str(... and just put path[i-1]
-        string2 = reads_map[int(str(path[i]))]
+        string1 = reads_map[path[i-1]] 
+        string2 = reads_map[path[i]]
         index = overlapBetweenStrings(string1,string2)
         string += string2[index+1:]
     return string
