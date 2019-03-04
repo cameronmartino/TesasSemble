@@ -4,6 +4,11 @@
 # TesasSemble
 assemble in the 4th dimension 
 
+### Running TesasSemble
+If you are using the appropriate environment, you should be able to run TesasSemble with a command like
+```bash
+python scripts/run_optim.py --files tests/data/fastq_test/S0.fastq tests/data/fastq_test/S1.fastq tests/data/fastq_test/S2.fastq --num-initial-edges 10 --optim-type simulated_annealing --output-dir output --alpha=0.3 -r 420 -k 1
+```
 
 ### Environment
 
@@ -16,6 +21,13 @@ conda env create -n tesas --file resources/environment.yml
 Then activate the environment with ```conda activate tesas```.
 
 Verify that the new environment was installed correctly with ```conda info --envs```.
+
+If you have already created the tesas environment and need to update, do
+
+```bash
+conda activate tesas
+conda env update -f=resources/environment.yml
+```
 
 If you made any changes to the environment (e.g., pip install, conda install), then you need to save these changes to the environment; do
 

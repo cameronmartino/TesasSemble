@@ -3,6 +3,8 @@
 [run]
 omit =
     */__init__.py
+    */TesasSemble/base.py
+    */TesasSemble/graph_components.py
 source = TesasSemble 
 branch = True
 include = */TesasSemble/*
@@ -14,3 +16,5 @@ exclude_lines =
     if __name__ == .__main__.:
 omit =
     */__init__.py
+    */TesasSemble/base.py
+    */TesasSemble/graph_components.py

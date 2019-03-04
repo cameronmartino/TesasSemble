@@ -73,7 +73,7 @@ class TestGraphClass(unittest.TestCase):
 				randomized_optimal_subgraph(self.sub, self.G, 2, 0.5)
 
 		# TODO more thorough check of equivalence of subgraph
-		self.assertEqual(4, len(approximate_subgraph.edges))
+		self.assertEqual(3, len(approximate_subgraph.edges))
 
 		self.teardown_small_diamond_graph()
 

@@ -32,16 +32,16 @@ class TestContigAssembly(unittest.TestCase):
         #self.JI = Edge('JI', self.J, self.I)
         
         self.reads_map = {}
-        self.reads_map[self.A] = 'ThisisthestringSpellLedbiePathNode1tothatOth'
-        self.reads_map[self.B] = 'ThisisthestringSpellLedbiePathNode2tothatOtherN0de'
-        self.reads_map[self.C] = 'tothatOtherN0de#bred3'
-        self.reads_map[self.D] = '#bred3NowIwouldtellaninterestingstorybutIm'
-        self.reads_map[self.E] = 'interestingstorybutImnotcreativeLikethat'
-        self.reads_map[self.F] = '3anasweomeandin'
-        self.reads_map[self.G] = 'stingstorybutImnotcreativeLikethatPerhapsThisflawwillbeMyUltimateATCGTFailure'
-        self.reads_map[self.H] = 'ikethatAndYetPerhapsselfAwaritywillAllowmyselftosupersedethseeSHORTcomings'
-        self.reads_map[self.I] = 'ThisStringShallBeastrnageMirroryStringAlsowithSomeNonRCNTssuchasAGGGTCCC'
-        self.reads_map[self.J] = 'suchasAGGGTCCC___someinternalTexxtMakesoforACompleteeString' #____ThisStringShallBeastrnageMirroryStringAlsow'
+        self.reads_map[1] = 'ThisisthestringSpellLedbiePathNode1tothatOth'
+        self.reads_map[2] = 'ThisisthestringSpellLedbiePathNode2tothatOtherN0de'
+        self.reads_map[3] = 'tothatOtherN0de#bred3'
+        self.reads_map[4] = '#bred3NowIwouldtellaninterestingstorybutIm'
+        self.reads_map[5] = 'interestingstorybutImnotcreativeLikethat'
+        self.reads_map[6] = '3anasweomeandin'
+        self.reads_map[7] = 'stingstorybutImnotcreativeLikethatPerhapsThisflawwillbeMyUltimateATCGTFailure'
+        self.reads_map[8] = 'ikethatAndYetPerhapsselfAwaritywillAllowmyselftosupersedethseeSHORTcomings'
+        self.reads_map[9] = 'ThisStringShallBeastrnageMirroryStringAlsowithSomeNonRCNTssuchasAGGGTCCC'
+        self.reads_map[10] = 'suchasAGGGTCCC___someinternalTexxtMakesoforACompleteeString' #____ThisStringShallBeastrnageMirroryStringAlsow'
         
         EC = ['ThisisthestringSpellLedbiePathNode1tothatOtherN0de#bred3',
                     'tothatOtherN0de#bred3NowIwouldtellaninterestingstorybutImnotcreativeLikethat',
