@@ -2,7 +2,7 @@ import unittest
 
 from TesasSemble.graph import *
 from TesasSemble.graph_components import *
-# from TesasSemble.contig_assembly import contig_assembly
+from TesasSemble.contig_assembly import contig_assembly
 
 class TestContigAssembly(unittest.TestCase):
 
@@ -42,14 +42,16 @@ class TestContigAssembly(unittest.TestCase):
         self.reads_map[8] = 'ikethatAndYetPerhapsselfAwaritywillAllowmyselftosupersedethseeSHORTcomings'
         self.reads_map[9] = 'ThisStringShallBeastrnageMirroryStringAlsowithSomeNonRCNTssuchasAGGGTCCC'
         self.reads_map[10] = 'suchasAGGGTCCC___someinternalTexxtMakesoforACompleteeString____ThisStringShallBeastrnageMirroryStringAlsow'
-
-        self.expected_contigs = ['ThisisthestringSpellLedbiePathNode1tothatOtherN0de#bred3',
+        
+        EC = ['ThisisthestringSpellLedbiePathNode1tothatOtherN0de#bred3',
                     'tothatOtherN0de#bred3NowIwouldtellaninterestingstorybutImnotcreativeLikethat',
                     'tothatOtherN0de#bred3anasweomeandinterestingstorybutImnotcreativeLikethat',
                     'ThisisthestringSpellLedbiePathNode2tothatOtherN0de#bred3',
                     'interestingstorybutImnotcreativeLikethatPerhapsThisflawwillbeMyUltimateATCGTFailure',
                     'interestingstorybutImnotcreativeLikethatAndYetPerhapsselfAwaritywillAllowmyselftosupersedethseeSHORTcomings',
-                    'suchasAGGGTCCC___someinternalTexxtMakesoforACompleteeString____ThisStringShallBeastrnageMirroryStringAlsowithSomeNonRCNTssuchasAGGGTCCC___someinternalTexxtMakesoforACompleteeString____ThisStringShallBeastrnageMirroryStringAlsow']
+              'suchasAGGGTCCC___someinternalTexxtMakesoforACompleteeString____ThisStringShallBeastrnageMirroryStringAlsowithSomeNonRCNTssuchasAGGGTCCC___someinternalTexxtMakesoforACompleteeString____ThisStringShallBeastrnageMirroryStringAlsow']
+
+        self.expected_contigs = sorted(EC)
 
         edge_list = [self.AC, self.BC, self.CD, self.CF, self.DE, self.FE, self.EG, self.EH, self.IJ, self.JI]
         colors 	  = ['blue',  'red',   'red',   'blue',  'red',   'blue',  'red',   'blue',  'red',   'red'  ]
@@ -86,9 +88,9 @@ class TestContigAssembly(unittest.TestCase):
     def test_small_diamond_graph(self):
         self.setup_small_diamond_graph()
 
-        contigs = contig_assembly(self.G_, self.reads_map)
+        contigs = sorted(contig_assembly(self.G_, self.reads_map))
 
-        self.assertEquals(sorted(contigs),sorted(self.expected_contigs))
+        self.assertEquals(contigs,self.expected_contigs)
 
         self.teardown_small_diamond_graph
 
