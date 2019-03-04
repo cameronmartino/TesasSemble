@@ -29,7 +29,7 @@ class TestContigAssembly(unittest.TestCase):
         self.EG = Edge('EG', self.E, self.G)
         self.EH = Edge('EH', self.E, self.H)
         self.IJ = Edge('IJ', self.I, self.J)
-        self.JI = Edge('JI', self.J, self.I)
+        #self.JI = Edge('JI', self.J, self.I)
         
         self.reads_map = {}
         self.reads_map[1] = 'ThisisthestringSpellLedbiePathNode1tothatOth'
@@ -41,7 +41,7 @@ class TestContigAssembly(unittest.TestCase):
         self.reads_map[7] = 'stingstorybutImnotcreativeLikethatPerhapsThisflawwillbeMyUltimateATCGTFailure'
         self.reads_map[8] = 'ikethatAndYetPerhapsselfAwaritywillAllowmyselftosupersedethseeSHORTcomings'
         self.reads_map[9] = 'ThisStringShallBeastrnageMirroryStringAlsowithSomeNonRCNTssuchasAGGGTCCC'
-        self.reads_map[10] = 'suchasAGGGTCCC___someinternalTexxtMakesoforACompleteeString____ThisStringShallBeastrnageMirroryStringAlsow'
+        self.reads_map[10] = 'suchasAGGGTCCC___someinternalTexxtMakesoforACompleteeString' #____ThisStringShallBeastrnageMirroryStringAlsow'
         
         EC = ['ThisisthestringSpellLedbiePathNode1tothatOtherN0de#bred3',
                     'tothatOtherN0de#bred3NowIwouldtellaninterestingstorybutImnotcreativeLikethat',
@@ -49,12 +49,12 @@ class TestContigAssembly(unittest.TestCase):
                     'ThisisthestringSpellLedbiePathNode2tothatOtherN0de#bred3',
                     'interestingstorybutImnotcreativeLikethatPerhapsThisflawwillbeMyUltimateATCGTFailure',
                     'interestingstorybutImnotcreativeLikethatAndYetPerhapsselfAwaritywillAllowmyselftosupersedethseeSHORTcomings',
-              'suchasAGGGTCCC___someinternalTexxtMakesoforACompleteeString____ThisStringShallBeastrnageMirroryStringAlsowithSomeNonRCNTssuchasAGGGTCCC___someinternalTexxtMakesoforACompleteeString____ThisStringShallBeastrnageMirroryStringAlsow']
+              'ThisStringShallBeastrnageMirroryStringAlsowithSomeNonRCNTssuchasAGGGTCCC___someinternalTexxtMakesoforACompleteeString']
 
-        self.expected_contigs = sorted(EC)
+        self.expected_contigs = EC
 
-        edge_list = [self.AC, self.BC, self.CD, self.CF, self.DE, self.FE, self.EG, self.EH, self.IJ, self.JI]
-        colors 	  = ['blue',  'red',   'red',   'blue',  'red',   'blue',  'red',   'blue',  'red',   'red'  ]
+        edge_list = [self.AC, self.BC, self.CD, self.CF, self.DE, self.FE, self.EG, self.EH, self.IJ] #, self.JI]
+        colors 	  = ['blue',  'red',   'red',   'blue',  'red',   'blue',  'red',   'blue',  'red'] #,   'red'  ]
         self.G_.add_edges_from(edge_list, colors)
 
 
@@ -83,12 +83,12 @@ class TestContigAssembly(unittest.TestCase):
         del self.EG 
         del self.EH 
         del self.IJ 
-        del self.JI 
+        #del self.JI 
 
     def test_small_diamond_graph(self):
         self.setup_small_diamond_graph()
 
-        contigs = sorted(contig_assembly(self.G_, self.reads_map))
+        contigs = contig_assembly(self.G_, self.reads_map)
 
         self.assertCountEqual(contigs,self.expected_contigs)
 
