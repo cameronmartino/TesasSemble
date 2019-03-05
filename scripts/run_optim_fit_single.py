@@ -25,29 +25,36 @@ args = parser.parse_args()
 def main(args):
     if not os.path.exists(args.output_dir):
         os.makedirs(args.output_dir)
+
     Graphs = GraphConstructor(k=args.read_length)
-    Graphs.fit(args.files)
-    node_map = Graphs.node_map()
+    Graphs.fit_single(args.files, args.files[0])
+    node_fasta = Graphs.node_map()
+
     node_map_file = os.path.join(args.output_dir, 'node_map.js')
     with open(node_map_file, 'w') as fp:
-        json.dump(node_map, fp)
+        json.dump(node_fasta, fp)
+
     for i, graph in enumerate(args.files):
-        G_RdBu = Graphs.condition_graph(graph)
+        G_RdBu, node_map = GraphConstructor(k=args.read_length).fit_single(args.files, args.files[i], nodes=node_map if i > 0 else {})
         print('Starting optimization for condition {}. Graph size: {} edges'.format(i, len(G_RdBu.edges)))
-        #print([len(path) for path in G_RdBu.maximal_non_branching_paths()])
+
         best_subgraph, best_subgraph_score = single_condition_best_graph(G_RdBu, args)
         paths = best_subgraph.maximal_non_branching_paths()
         print('Condition {} finished. Score: {}. Path Lengths: {}'.format(i, best_subgraph_score, 
             [len(path) for path in paths]))
 
-        #graph_pickle_file = os.path.join(args.output_dir, 'graph_{}.p'.format(i))
-        #with open(graph_pickle_file, 'wb') as fp:
-        #   pickle.dump(best_subgraph, fp)
+        del paths
 
-        contigs = contig_assembly(best_subgraph, node_map)
+        del G_RdBu
+        contigs = contig_assembly(best_subgraph, node_fasta)
+
+        del best_subgraph
         contig_file = os.path.join(args.output_dir, 'contigs_{}.txt'.format(i))
+
         with open(contig_file, 'w') as fp:
             fp.write('\n'.join(contigs))
+        del contigs
+
         print('Contigs written to file {}'.format(contig_file))
 
     return True
