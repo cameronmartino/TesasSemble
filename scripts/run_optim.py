@@ -10,12 +10,13 @@ from TesasSemble.contig_assembly import contig_assembly
 parser = argparse.ArgumentParser(description="Optimize a subgraph of the fastg's passed to this script")
 
 parser.add_argument("--files", '-f', dest='files', nargs='+', help='file paths for all fastq files')
-parser.add_argument("--num-initial-edges", '-n', dest='num_initial_edges', type=int, default=20)
+parser.add_argument("--num-initial-edges", '-e', dest='num_initial_edges', type=int, default=20)
 parser.add_argument("--k", '-k', dest='k', type=int, default=1)
 parser.add_argument("--alpha", '-a', dest='alpha', type=float, default=0.5)
 parser.add_argument("--optim-type", '-o', dest='optim_type', required=True)
 parser.add_argument("--output-dir", '-d', dest='output_dir', required=True, help="directory that output can be written to", default=os.curdir)
 parser.add_argument("--read-length", '-r', dest='read_length', required=True, help="length of reads in fastqs", type=int)
+parser.add_argument("--num-iter", "-n", dest='num_iter', type=int, default=100)
 
 args = parser.parse_args()
 
@@ -64,6 +65,7 @@ def run_optim(initial_subgraph, G, args):
 		return optim.simulated_annealing(initial_subgraph,
 										 G,
 										 args.alpha,
+										 n=args.num_iter,
 										 k_neighbors=args.k)
 	else:
 		raise NotImplementedError('Optimization type not implemented')
