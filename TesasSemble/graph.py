@@ -200,7 +200,7 @@ class RedBlueDiGraph(DiGraph):
             len(paths) if len(paths) > 0 else 0
         return alpha * self.coverage + (1 - alpha) * avg_path_length
 
-    def add_edge(self, edge, color='blue'):
+    def add_edge(self, edge, color):
         super(RedBlueDiGraph, self).add_edge(edge)
         if color == self.RED:
             self.color[edge] = self.RED
