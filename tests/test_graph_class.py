@@ -178,7 +178,7 @@ class TestGraphClass(unittest.TestCase):
 		CD = Edge('CD', self.C, D)
 
 		H = self.G.copy()
-		H.add_edge(CD)
+		H.add_edge(CD, 'blue')
 
 		# check that H is a RedBlueDiGraph
 		self.assertIsInstance(H, RedBlueDiGraph)
@@ -246,7 +246,7 @@ class TestGraphClass(unittest.TestCase):
 		plus_neighbor_graphs = []
 		for edge in plus_neighbor_edges:
 			graph = self.sub.copy()
-			graph.add_edge(edge)
+			graph.add_edge(edge, 'blue')
 			plus_neighbor_graphs.append(graph)
 		self.assertEqual(len(neighbors), len(plus_neighbor_graphs))
 		for graph in neighbors:

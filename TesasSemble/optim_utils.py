@@ -20,7 +20,7 @@ def modify_one_edge(H, G):
     if len(tmp_H.edges) != 0:
         if decision == 'add':
             neighbor_edges = []
-            if len(G.edges) != len(tmp_H.edges):
+            if len(G.edges) > len(tmp_H.edges):
                 for edge in G.edges:
                     if edge not in H.edges and (
                         (edge.node_a in tmp_H.nodes) or (
@@ -36,7 +36,8 @@ def modify_one_edge(H, G):
         # If H.edges is empty, initialize it again with one random edge from G.
         neighbor_edges = []
         neighbor_edges.extend(G.edges)
-        tmp_H.add_edge(random.choice(neighbor_edges))
+        new_edge = random.choice(neighbor_edges)
+        tmp_H.add_edge(new_edge, color=G.color[new_edge])
     return tmp_H
 
 

@@ -187,9 +187,10 @@ class RedBlueDiGraph(DiGraph):
 
     def copy(self):
         H_ = __class__()
-        H_.add_edges_from(self.edges)
+        colors = [self.color[edge] for edge in self.edges]
+        H_.add_edges_from(self.edges, colors=colors)
         H_.coverage = self.coverage
-        H_.color = dict(self.color)
+        #H_.color = dict(self.color)
         return H_
 
     def score(self, alpha):
@@ -199,7 +200,7 @@ class RedBlueDiGraph(DiGraph):
             len(paths) if len(paths) > 0 else 0
         return alpha * self.coverage + (1 - alpha) * avg_path_length
 
-    def add_edge(self, edge, color='blue'):
+    def add_edge(self, edge, color):
         super(RedBlueDiGraph, self).add_edge(edge)
         if color == self.RED:
             self.color[edge] = self.RED
@@ -233,5 +234,6 @@ class RedBlueDiGraph(DiGraph):
             self.coverage -= 1
         else:
             self.coverage += 1
-        self.color.pop(edge)
         super(RedBlueDiGraph, self).remove_edge(edge)
+        if edge not in self.edges:
+            self.color.pop(edge)
