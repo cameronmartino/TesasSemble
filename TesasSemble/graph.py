@@ -198,7 +198,15 @@ class RedBlueDiGraph(DiGraph):
         total_path_length = sum([len(path) for path in paths])
         avg_path_length = total_path_length / \
             len(paths) if len(paths) > 0 else 0
-        return alpha * self.coverage + (1 - alpha) * avg_path_length
+        #return alpha * self.coverage + (1 - alpha) * avg_path_length
+        # Naive measurement of red edges per contig
+        red_edges = 0
+        for edge in self.edges:
+            if self.color[edge] == self.RED:
+                red_edges += 1
+
+        red_ratio = red_edges / len(self.edges) if len(self.edges) > 0 else 0
+        return red_ratio * avg_path_length
 
     def add_edge(self, edge, color):
         super(RedBlueDiGraph, self).add_edge(edge)
