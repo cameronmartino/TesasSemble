@@ -30,7 +30,8 @@ def simulated_annealing(H,
                         T_tol=1e-5,
                         n=100,
                         gamma=0.85,
-                        sampling_decision='fast'):
+                        sampling_decision='fast',
+                        objective_fn='original'):
     '''Simulated Annealing to perform an optimization to obtain a subgraph H from graph G.'''
 
     best_H = H
@@ -47,7 +48,7 @@ def simulated_annealing(H,
             else:
                 raise ValueError('Sampling decision not implemented')
 
-            new_H_score = new_H.score(alpha)
+            new_H_score = new_H.score(alpha, objective_fn=objective_fn)
             delta = best_score - new_H_score
             if delta < 0:
                 best_H = new_H
