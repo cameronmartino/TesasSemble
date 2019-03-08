@@ -45,8 +45,7 @@ def simulated_annealing(H,
             # elif sampling_decision == 'k_adjacent':
             #    new_H = best_H.adjacent_graph(best_H, G, k_neighbors)
             else:
-                print('Invalid "sampling_decision"')
-                return None
+                raise ValueError('Sampling decision not implemented')
 
             new_H_score = new_H.score(alpha)
             delta = best_score - new_H_score
