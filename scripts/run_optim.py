@@ -19,6 +19,7 @@ parser.add_argument("--read-length", '-r', dest='read_length', required=True, he
 parser.add_argument("--num-iter", "-n", dest='num_iter', type=int, default=100)
 parser.add_argument("--temperature", "-T", dest='temperature', type=float, default=40)
 parser.add_argument("--gamma", "-g", dest='gamma', type=float, default=0.85)
+parser.add_argument("--initialization", "-i", dest='initialization', type=str, default='')
 
 args = parser.parse_args()
 
@@ -58,7 +59,11 @@ def single_condition_best_graph(G, args):
     input: graph to optimize, and argparse object
     output: returns best_subgraph, best_subgraph_score for one trial of the randomized algorithm chose
     """
-    initial_subgraph = optim_utils.i_sample_edges(G, args.num_initial_edges)
+    if args.initialization != 'fraction':
+        initial_subgraph = optim_utils.i_sample_edges(G, args.num_initial_edges)
+    else:
+        initial_subgraph = optim_utils.graph_from_fraction_edges(G, percentage=args.num_initial_edges)
+
     best_subgraph, best_subgraph_score = run_optim(initial_subgraph, G, args)
     return best_subgraph, best_subgraph_score
 
