@@ -24,7 +24,7 @@ def graph_from_fraction_edges(Graph, percentage = 20):
 
     new_edge = edge_list.pop(0)
     add_more = True
-    while ((len(H.edges) < min_number) or len(edge_list) != 0) and (add_more == True):
+    while ((len(H.edges) < min_number) and (len(edge_list) != 0)) and (add_more == True):
         H.add_edge(new_edge, color=Graph.color[new_edge])
         add_more = False
         for edge in edge_list:
