@@ -24,17 +24,16 @@ def graph_from_fraction_edges(Graph, percentage = 20):
 
     new_edge = edge_list.pop(0)
     add_more = True
-    while ((len(H.edges) < min_number) and (len(edge_list) != 0)) and (add_more == True):
+    while (len(H.edges) < min_number) and (len(edge_list) != 0) and (add_more == True):
         H.add_edge(new_edge, color=Graph.color[new_edge])
         add_more = False
         for edge in edge_list:
             if edge not in H.edges and ((edge.node_a in H.nodes) or (edge.node_b in H.nodes)):
                 new_edge = edge
                 edge_list.remove(edge)
+                random.shuffle(edge_list)
                 add_more = True
                 break
-        if add_more == False:
-            break
     return H
 
 
