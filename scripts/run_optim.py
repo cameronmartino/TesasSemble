@@ -19,7 +19,8 @@ parser.add_argument("--read-length", '-r', dest='read_length', required=True, he
 parser.add_argument("--num-iter", "-n", dest='num_iter', type=int, default=100)
 parser.add_argument("--temperature", "-T", dest='temperature', type=float, default=40)
 parser.add_argument("--gamma", "-g", dest='gamma', type=float, default=0.85)
-parser.add_argument("--initialization", "-i", dest='initialization', type=str, default='')
+parser.add_argument("--initialization", "-i", dest='initialization', type=str, default='number')
+parser.add_argument("--function", "-fn", dest='function', type=str, default='original')
 
 args = parser.parse_args()
 
@@ -78,7 +79,8 @@ def run_optim(initial_subgraph, G, args):
                                          n=args.num_iter,
                                          T=args.temperature,
                                          gamma=args.gamma,
-                                         k_neighbors=args.k)
+                                         k_neighbors=args.k,
+                                         objective_fn=args.function)
     else:
         raise NotImplementedError('Optimization type not implemented')
 
