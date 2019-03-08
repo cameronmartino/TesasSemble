@@ -35,7 +35,7 @@ def simulated_annealing(H,
     '''Simulated Annealing to perform an optimization to obtain a subgraph H from graph G.'''
 
     best_H = H
-    best_score = best_H.score(alpha)
+    best_score = best_H.score(alpha, objective_fn=objective_fn)
 
     while T > Tmin + T_tol:
         for i in range(n):
