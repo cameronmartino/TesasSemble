@@ -13,6 +13,30 @@ def i_sample_edges(Graph, i):
     return H
 
 
+def graph_from_fraction_edges(Graph, percentage = 20):
+    edge_list = [edge for edge in Graph.edges if Graph.color[edge] == 'red']
+    random.shuffle(edge_list)
+    H = graph.RedBlueDiGraph()
+
+    min_number = int(percentage * len(edge_list) / 100)
+    if min_number < 1:
+        min_number = 1
+
+    new_edge = edge_list.pop(0)
+    add_more = True
+    while (len(H.edges) < min_number) and (len(edge_list) != 0) and (add_more == True):
+        H.add_edge(new_edge, color=Graph.color[new_edge])
+        add_more = False
+        for edge in edge_list:
+            if edge not in H.edges and ((edge.node_a in H.nodes) or (edge.node_b in H.nodes)):
+                new_edge = edge
+                edge_list.remove(edge)
+                random.shuffle(edge_list)
+                add_more = True
+                break
+    return H
+
+
 def modify_one_edge(H, G):
     # decide if add or remove
     decision = random.choice(['add', 'remove'])

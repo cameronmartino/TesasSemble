@@ -27,14 +27,15 @@ def simulated_annealing(H,
                         k_neighbors=3,
                         T=40,
                         Tmin=0,
-                        T_tol=1e-5,
+                        T_tol=1e-9,
                         n=100,
                         gamma=0.85,
-                        sampling_decision='fast'):
+                        sampling_decision='fast',
+                        objective_fn='original'):
     '''Simulated Annealing to perform an optimization to obtain a subgraph H from graph G.'''
 
     best_H = H
-    best_score = best_H.score(alpha)
+    best_score = best_H.score(alpha, objective_fn=objective_fn)
 
     while T > Tmin + T_tol:
         for i in range(n):
@@ -45,10 +46,9 @@ def simulated_annealing(H,
             # elif sampling_decision == 'k_adjacent':
             #    new_H = best_H.adjacent_graph(best_H, G, k_neighbors)
             else:
-                print('Invalid "sampling_decision"')
-                return None
+                raise ValueError('Sampling decision not implemented')
 
-            new_H_score = new_H.score(alpha)
+            new_H_score = new_H.score(alpha, objective_fn=objective_fn)
             delta = best_score - new_H_score
             if delta < 0:
                 best_H = new_H
