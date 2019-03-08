@@ -193,20 +193,23 @@ class RedBlueDiGraph(DiGraph):
         #H_.color = dict(self.color)
         return H_
 
-    def score(self, alpha):
+    def score(self, alpha, objective_fn = 'original'):
         paths = self.maximal_non_branching_paths()
         total_path_length = sum([len(path) for path in paths])
         avg_path_length = total_path_length / \
             len(paths) if len(paths) > 0 else 0
-        #return alpha * self.coverage + (1 - alpha) * avg_path_length
-        # Naive measurement of red edges per contig
-        red_edges = 0
-        for edge in self.edges:
-            if self.color[edge] == self.RED:
-                red_edges += 1
-
-        red_ratio = red_edges / len(self.edges) if len(self.edges) > 0 else 0
-        return red_ratio * avg_path_length
+        if objective_fn == 'original':
+            return alpha * self.coverage + (1 - alpha) * avg_path_length
+        elif objective_fn == 'naive':
+            # Naive measurement of red edges per contig
+            red_edges = 0
+            for edge in self.edges:
+                if self.color[edge] == self.RED:
+                    red_edges += 1
+            red_ratio = red_edges / len(self.edges) if len(self.edges) > 0 else 0
+            return red_ratio * avg_path_length
+        else:
+            raise ValueError('Objective function not implemented')
 
     def add_edge(self, edge, color):
         super(RedBlueDiGraph, self).add_edge(edge)
